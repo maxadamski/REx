@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
 import numpy as np
 from collections import defaultdict
 from code.data.feed_data import RelationEntityBatcher
@@ -11,7 +9,6 @@ import logging
 logger = logging.getLogger()
 
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -659,7 +656,7 @@ class Episode(object):
 
         if (not self.agentic_ai_enabled) or (_call_llm is None) or (not self.persona_text):
             # Keep logging arrays coherent so the rest of the pipeline/test logger works
-            print("[INFO] Agentic AI disabled or client/persona missing; using IC-based rewards only.")
+            #print("[INFO] Agentic AI disabled or client/persona missing; using IC-based rewards only.")
             self.agentic_scores = base.astype(np.float32)
             self.llm_dimensions = {}
             self.reward_kind = np.array(['ic_only'] * B, dtype=object)

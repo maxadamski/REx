@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
 import argparse
 import uuid
 import os
@@ -45,7 +43,6 @@ def read_options():
     parser.add_argument('--IC_importance', default=0, type=float)
     parser.add_argument('--seed', default=None, type=int)
     parser.add_argument('--early_stopping', default=1, type=int)
-    #parser.add_argument('--tensorboard_dir', default="tensorboard", type=str)
     parser.add_argument("--prevent_cycles", default=0, type=int)
     parser.add_argument("--agentic_ai_enabled", default=0, type=int,
                         help="Enable Agentic AI persona-shaped scoring (1 = on, 0 = off)")
@@ -99,13 +96,8 @@ def read_options():
     parsed['pretrained_embeddings_entity'] = ""
 
     timestamp = datetime.datetime.now().strftime("%d-%m_%H:%M:%S")
-
-
-    #parsed['output_dir'] = parsed['base_output_dir'] + f'/{timestamp}_Plength-{parsed["path_length"]}_AgenticAI-{parsed["agentic_ai_enabled"]}'
-    parsed['output_dir'] = parsed['base_output_dir'] + f'/{timestamp}'
-    
-    parsed['model_dir'] = parsed['output_dir']+'/'+ 'model/'
-
+    parsed['output_dir'] = os.path.join(parsed['base_output_dir'], timestamp)
+    parsed['model_dir'] = os.path.join(parsed['output_dir'], 'model')
     parsed['load_model'] = (parsed['load_model'] == 1)
 
     ##Logger##

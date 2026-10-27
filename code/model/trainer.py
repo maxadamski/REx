@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
 from tqdm import tqdm
 import random
 import json
@@ -13,29 +11,17 @@ import torch.nn as nn
 import torch.nn.functional as nnf
 from code.model.agent import Agent
 from code.options import read_options
-from code.model.environment import env
+from code.model.environment import env, Episode, threshold_for_step
 import codecs
 from collections import defaultdict
 from itertools import combinations
 import gc
-try:
-    import resource
-except ImportError:
-    resource = None
 import sys
 from code.model.baseline import ReactiveBaseline
-from scipy.special import logsumexp as lse
+from scipy.special import logsumexp
 import shutil
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-import numpy as np
-
-from code.model.environment import env, Episode, threshold_for_step
-
 
 def trim_and_rank_batch(entity_traj, relation_traj, log_probs, end_entities, batch_size, K):
     """
@@ -80,7 +66,7 @@ def configure_logger(log_file_path):
     logger = logging.getLogger(__name__)  
     logger.setLevel(logging.INFO)
 
-    fmt = '%(asctime)s: [ %(message)s ]'
+    fmt = '%(asctime)s %(message)s'
     datefmt = '%m/%d/%Y %I:%M:%S %p'
 
     console_handler = logging.StreamHandler(sys.stdout)
@@ -833,7 +819,7 @@ class Trainer(object):
                             answer = ce[b,r]
                     final_scores = defaultdict(float)
                     for e in scores:
-                        final_scores[e] = lse(scores[e])
+                        final_scores[e] = logsumexp(scores[e])
                     sorted_answers = sorted(final_scores, key=final_scores.get, reverse=True)
                     if answer in  sorted_answers:
                         answer_pos = sorted_answers.index(answer)
