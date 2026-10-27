@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from tqdm import tqdm
 import random
 import json
@@ -9,15 +10,15 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as nnf
-from code.model.agent import Agent
-from code.options import read_options
-from code.model.environment import env, Episode, threshold_for_step
+from src.model.agent import Agent
+from src.options import read_options
+from src.model.environment import env, Episode, threshold_for_step
 import codecs
 from collections import defaultdict
 from itertools import combinations
 import gc
 import sys
-from code.model.baseline import ReactiveBaseline
+from src.model.baseline import ReactiveBaseline
 from scipy.special import logsumexp
 import shutil
 import warnings
@@ -1151,7 +1152,7 @@ if __name__ == '__main__':
     # usage pairs this with --no_llm_rerank=1 (skip in-loop scoring) so the
     # test phase is fast and the rerank runs once at the end with cross-pair
     # batches and a (possibly lighter) judge model. See
-    # code/model/score_external.py for the scorer + failure fallback.
+    # src/model/score_external.py for the scorer + failure fallback.
     if options.get('external_rerank') and options.get('agentic_ai_enabled'):
         try:
             from score_external import score_paths_external, get_call_llm, apply_failure_fallback

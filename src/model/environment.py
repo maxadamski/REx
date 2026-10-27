@@ -1,7 +1,7 @@
 import numpy as np
 from collections import defaultdict
-from code.data.feed_data import RelationEntityBatcher
-from code.data.grapher import RelationEntityGrapher
+from src.data.feed_data import RelationEntityBatcher
+from src.data.grapher import RelationEntityGrapher
 import torch
 
 

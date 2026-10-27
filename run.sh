@@ -2,7 +2,7 @@
 . $1
 export PYTHONPATH="."
 gpu_id=0
-cmd="python code/model/trainer.py --base_output_dir $base_output_dir \
+cmd="python src/model/trainer.py --base_output_dir $base_output_dir \
     --path_length $path_length \
     --hidden_size $hidden_size --embedding_size $embedding_size \
     --batch_size $batch_size --beta $beta --Lambda $Lambda \
