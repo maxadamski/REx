@@ -5,4 +5,3 @@ scipy>=1.11.0
 torch>=2.0.0
 tqdm>=4.67.1
 rdflib>=7.6.0
-dotenv
